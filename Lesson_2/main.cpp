@@ -4,7 +4,6 @@
 
 int main(int argc, char *argv[])
 {
-    //Русский коммент
     QApplication a(argc, argv);
     Lesson_2 w;
    
