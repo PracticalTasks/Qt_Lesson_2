@@ -51,7 +51,7 @@ void Lesson_2::on_pushButton()
 
 void Lesson_2::on_checkBox(int state)
 {
-    //ˮ᮲ힹ���istMode = 0, IconMode = 1. ͥꡧ殨㡮𞮠嬠1 桮Ⱡ󮬠 
+    
     ui.listView->setViewMode(static_cast<QListView::ViewMode>(mode ^= 1));
 }
 
