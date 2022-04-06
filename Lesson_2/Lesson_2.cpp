@@ -18,7 +18,7 @@ Lesson_2::Lesson_2(QWidget *parent)
     select = new QItemSelectionModel(model);
     ui.listView->setSelectionModel(select);
 
-    //Task 2
+    //Task 3
     tableModel = new QStandardItemModel(this);
     tableModel->appendRow({ new QStandardItem("PC1"), new QStandardItem("192.168.1.100"), new QStandardItem("F0:98:9D:00:00:00") });
     tableModel->appendRow({ new QStandardItem("PC2"), new QStandardItem("192.168.45.121"), new QStandardItem("F0:98:9D:FF:80:00") });
@@ -29,21 +29,26 @@ Lesson_2::Lesson_2(QWidget *parent)
     for (int i = 0; i < tableModel->rowCount(); i++)
         tableModel->setHeaderData(i, Qt::Horizontal, lst.at(i));
     
+    
     ui.tableView->setModel(tableModel);
     selectTable = new QItemSelectionModel(tableModel);
     ui.tableView->setSelectionModel(selectTable);
     ui.tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
+    //Task 2
     QObject::connect(ui.pushButton, SIGNAL(clicked()), SLOT(on_pushButton()));
     QObject::connect(ui.checkBox, SIGNAL(stateChanged(int)), SLOT(on_checkBox(int)));
     QObject::connect(select, SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(selChanged(const QItemSelection&, const QItemSelection&)));
-    QObject::connect(selectTable, SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), SLOT(selChangedOfTable(const QItemSelection&, const QItemSelection&)));
     QObject::connect(ui.pushButton_2, SIGNAL(clicked()), SLOT(on_pushButton_2()));
     QObject::connect(ui.pushButton_3, SIGNAL(clicked()), SLOT(on_pushButton_3()));
     QObject::connect(ui.pushButton_4, SIGNAL(clicked()), SLOT(on_pushButton_4()));
+
+    //Task 3
+    QObject::connect(selectTable, SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), SLOT(selChangedTable(const QItemSelection&, const QItemSelection&)));
     QObject::connect(ui.pushButton_5, SIGNAL(clicked()), SLOT(on_pushButton_5()));
 }
 
+//Task 2
 void Lesson_2::on_pushButton()
 {
     model->appendRow(new QStandardItem(QIcon("icon/default.png"), ui.lineEdit->text()));
@@ -60,11 +65,6 @@ void Lesson_2::selChanged(const QItemSelection &selected , const QItemSelection 
     currentIdx = select->selectedIndexes();
 }
 
-void Lesson_2::selChangedOfTable(const QItemSelection& sel, const QItemSelection& desel)
-{
-    idxList = sel.indexes();
-
-}
 
 void Lesson_2::on_pushButton_2()
 {
@@ -97,6 +97,12 @@ void Lesson_2::on_pushButton_4()
 
 }
 
+//Task 3
+void Lesson_2::selChangedTable(const QItemSelection& sel, const QItemSelection&)
+{
+    idxList = sel.indexes();
+
+}
 
 void Lesson_2::on_pushButton_5()
 {

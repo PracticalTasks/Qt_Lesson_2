@@ -13,12 +13,15 @@ public:
 
 private:
     Ui::Lesson_2Class ui;
+    //Task 2
     QStandardItemModel* model = nullptr;
-    QStandardItemModel* tableModel = nullptr;
     QItemSelectionModel* select = nullptr;
-    QItemSelectionModel* selectTable = nullptr;
-    int mode = 0;   //IconMode
     QModelIndexList currentIdx;
+    int mode = 0;   //IconMode
+    
+    //Task 3
+    QStandardItemModel* tableModel = nullptr;
+    QItemSelectionModel* selectTable = nullptr;
     QModelIndexList idxList;
 
 private slots:
@@ -29,5 +32,5 @@ private slots:
     void on_pushButton_5();
     void on_checkBox(int state);
     void selChanged(const QItemSelection&, const QItemSelection&);
-    void selChangedOfTable(const QItemSelection&, const QItemSelection&);
+    void selChangedTable(const QItemSelection&, const QItemSelection&);
 };
