@@ -27,6 +27,6 @@ private slots:
     void onRemoveButton();
     void onUpButton();
     void onDownButton();
-    void on_pushButton_5();
-    void iconMode(int state);
+    void onChangeColor();
+    void iconMode(int);
 };

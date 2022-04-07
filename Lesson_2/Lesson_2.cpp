@@ -33,6 +33,7 @@ Lesson_2::Lesson_2(QWidget *parent)
     ui.tableView->setModel(tableModel);
     selectTable = new QItemSelectionModel(tableModel);
     ui.tableView->setSelectionModel(selectTable);
+    ui.tableView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     ui.tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     //Task 2
@@ -43,13 +44,19 @@ Lesson_2::Lesson_2(QWidget *parent)
     QObject::connect(ui.downButton, SIGNAL(clicked()), SLOT(onDownButton()));
 
     //Task 3
-    QObject::connect(ui.pushButton_5, SIGNAL(clicked()), SLOT(on_pushButton_5()));
+    QObject::connect(ui.changeColor, SIGNAL(clicked()), SLOT(onChangeColor()));
+    
 }
 
 //Task 2
 void Lesson_2::onAddButton()
 {
-    model->appendRow(new QStandardItem(QIcon("icon/default.png"), ui.lineEdit->text()));
+    if (!ui.lineEdit->text().isEmpty())
+    {
+        model->appendRow(new QStandardItem(QIcon("icon/default.png"), ui.lineEdit->text()));
+        ui.lineEdit->clear();
+    }
+    
 }
 
 void Lesson_2::iconMode(int)
@@ -103,22 +110,26 @@ void Lesson_2::onDownButton()
 }
 
 //Task 3
-void Lesson_2::on_pushButton_5()
+void Lesson_2::onChangeColor()
 {
     if (selectTable->hasSelection())
     {
-        int i = 0;
-        auto idx = selectTable->currentIndex();
-        while (true)
+        auto selRows = selectTable->selectedRows();
+        for (const auto& index : selRows)
         {
-            idx = tableModel->index(idx.row(), i++);
-            if (idx.isValid())
+            int i = 0;
+            while (true)
             {
-                auto item = tableModel->itemFromIndex(idx);
-                item->setData(QColor(Qt::red), Qt::BackgroundRole);
+                auto idx = tableModel->index(index.row(), i++);
+                if (idx.isValid())
+                {
+                    auto item = tableModel->itemFromIndex(idx);
+                    item->setData(QColor(Qt::red), Qt::BackgroundRole);
+                }
+                else           
+                    break;                                    
             }
-            else
-                break;
         }
+
     }
 }

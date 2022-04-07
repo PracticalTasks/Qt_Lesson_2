@@ -160,7 +160,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_5">
+    <widget class="QPushButton" name="changeColor">
      <property name="geometry">
       <rect>
        <x>460</x>
