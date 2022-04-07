@@ -16,7 +16,6 @@ private:
     //Task 2
     QStandardItemModel* model = nullptr;
     QItemSelectionModel* select = nullptr;
-    QModelIndexList currentIdx;
     int mode = 0;   //IconMode
     
     //Task 3
@@ -25,12 +24,11 @@ private:
     QModelIndexList idxList;
 
 private slots:
-    void on_pushButton();
-    void on_pushButton_2();
-    void on_pushButton_3();
-    void on_pushButton_4();
+    void onAddButton();
+    void onRemoveButton();
+    void onUpButton();
+    void onDownButton();
     void on_pushButton_5();
-    void on_checkBox(int state);
-    void selChanged(const QItemSelection&, const QItemSelection&);
+    void iconMode(int state);
     void selChangedTable(const QItemSelection&, const QItemSelection&);
 };

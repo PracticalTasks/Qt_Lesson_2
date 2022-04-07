@@ -36,7 +36,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="addButton">
      <property name="geometry">
       <rect>
        <x>280</x>
@@ -72,7 +72,7 @@
       <string>Добавление строки</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="removeButton">
      <property name="geometry">
       <rect>
        <x>280</x>
@@ -85,7 +85,7 @@
       <string>Удалить</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBox">
+    <widget class="QCheckBox" name="iconMode">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -98,7 +98,7 @@
       <string>IconMode</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_3">
+    <widget class="QPushButton" name="upButton">
      <property name="geometry">
       <rect>
        <x>420</x>
@@ -124,7 +124,7 @@
       <string>Перемещение строки</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_4">
+    <widget class="QPushButton" name="downButton">
      <property name="geometry">
       <rect>
        <x>420</x>
@@ -196,8 +196,6 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="Lesson_2.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

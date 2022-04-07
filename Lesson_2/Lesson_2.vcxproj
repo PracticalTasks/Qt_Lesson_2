@@ -87,7 +87,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <QtRcc Include="Lesson_2.qrc" />
+    <QtRcc Include="Resource.qrc" />
     <QtUic Include="Lesson_2.ui" />
     <QtMoc Include="Lesson_2.h" />
     <ClCompile Include="Lesson_2.cpp" />

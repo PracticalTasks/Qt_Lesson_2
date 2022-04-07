@@ -36,12 +36,11 @@ Lesson_2::Lesson_2(QWidget *parent)
     ui.tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     //Task 2
-    QObject::connect(ui.pushButton, SIGNAL(clicked()), SLOT(on_pushButton()));
-    QObject::connect(ui.checkBox, SIGNAL(stateChanged(int)), SLOT(on_checkBox(int)));
-    QObject::connect(select, SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(selChanged(const QItemSelection&, const QItemSelection&)));
-    QObject::connect(ui.pushButton_2, SIGNAL(clicked()), SLOT(on_pushButton_2()));
-    QObject::connect(ui.pushButton_3, SIGNAL(clicked()), SLOT(on_pushButton_3()));
-    QObject::connect(ui.pushButton_4, SIGNAL(clicked()), SLOT(on_pushButton_4()));
+    QObject::connect(ui.addButton, SIGNAL(clicked()), SLOT(onAddButton()));
+    QObject::connect(ui.iconMode, SIGNAL(stateChanged(int)), SLOT(iconMode(int)));
+    QObject::connect(ui.removeButton, SIGNAL(clicked()), SLOT(onRemoveButton()));
+    QObject::connect(ui.upButton, SIGNAL(clicked()), SLOT(onUpButton()));
+    QObject::connect(ui.downButton, SIGNAL(clicked()), SLOT(onDownButton()));
 
     //Task 3
     QObject::connect(selectTable, SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), SLOT(selChangedTable(const QItemSelection&, const QItemSelection&)));
@@ -49,52 +48,59 @@ Lesson_2::Lesson_2(QWidget *parent)
 }
 
 //Task 2
-void Lesson_2::on_pushButton()
+void Lesson_2::onAddButton()
 {
     model->appendRow(new QStandardItem(QIcon("icon/default.png"), ui.lineEdit->text()));
 }
 
-void Lesson_2::on_checkBox(int state)
+void Lesson_2::iconMode(int)
 {
-    
     ui.listView->setViewMode(static_cast<QListView::ViewMode>(mode ^= 1));
 }
 
-void Lesson_2::selChanged(const QItemSelection &selected , const QItemSelection &)
+
+void Lesson_2::onRemoveButton()
 {
-    currentIdx = select->selectedIndexes();
-}
+    if (select->hasSelection())
 
-
-void Lesson_2::on_pushButton_2()
-{
-    model->removeRow(currentIdx.at(0).row());
-
-}
-
-void Lesson_2::on_pushButton_3()
-{
-    int row = currentIdx.at(0).row();
-    if (row >= 1)
     {
-        QList<QStandardItem*> lstItem;
-        lstItem = model->takeRow(currentIdx.at(0).row());
-        model->insertRow(--row, lstItem.at(0));
+        auto currentIdx = select->currentIndex();
+        model->removeRow(currentIdx.row());
+
+    }
+}
+
+void Lesson_2::onUpButton()
+{
+    if (select->hasSelection())
+    {
+        auto currentIdx = select->currentIndex();
+        int row = currentIdx.row();
+
+        if (row > 0)
+        {
+            auto item = model->takeRow(currentIdx.row());
+            model->insertRow(--row, item);
+        }
+        ui.listView->setCurrentIndex(model->index(row, 0));
     }
     
 }
 
-void Lesson_2::on_pushButton_4()
+void Lesson_2::onDownButton()
 {
-    int row = currentIdx.at(0).row();
-   
-    if (row < (model->rowCount()-1))
+    if (select->hasSelection())
     {
-        QList<QStandardItem*> lstItem;
-        lstItem = model->takeRow(currentIdx.at(0).row());
-        model->insertRow(++row, lstItem.at(0));
-    }
+        auto currentIdx = select->currentIndex();
+        int row = currentIdx.row();
 
+        if (row < (model->rowCount() - 1))
+        {
+            auto item = model->takeRow(currentIdx.row());
+            model->insertRow(++row, item);            
+        }
+        ui.listView->setCurrentIndex(model->index(row, 0));
+    }
 }
 
 //Task 3
