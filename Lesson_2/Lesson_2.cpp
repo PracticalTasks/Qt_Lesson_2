@@ -43,7 +43,6 @@ Lesson_2::Lesson_2(QWidget *parent)
     QObject::connect(ui.downButton, SIGNAL(clicked()), SLOT(onDownButton()));
 
     //Task 3
-    QObject::connect(selectTable, SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), SLOT(selChangedTable(const QItemSelection&, const QItemSelection&)));
     QObject::connect(ui.pushButton_5, SIGNAL(clicked()), SLOT(on_pushButton_5()));
 }
 
@@ -104,27 +103,22 @@ void Lesson_2::onDownButton()
 }
 
 //Task 3
-void Lesson_2::selChangedTable(const QItemSelection& sel, const QItemSelection&)
-{
-    idxList = sel.indexes();
-
-}
-
 void Lesson_2::on_pushButton_5()
 {
-    QStandardItem *item;
-    QModelIndex idx;
-    int i = 0;
-    while(idxList.count() != 0)
+    if (selectTable->hasSelection())
     {
-        idx = tableModel->index(idxList.at(0).row(), i++);
-        if (idx.isValid())
+        int i = 0;
+        auto idx = selectTable->currentIndex();
+        while (true)
         {
-            item = tableModel->itemFromIndex(idx);
-            item->setData(QColor(Qt::red), Qt::BackgroundRole);
+            idx = tableModel->index(idx.row(), i++);
+            if (idx.isValid())
+            {
+                auto item = tableModel->itemFromIndex(idx);
+                item->setData(QColor(Qt::red), Qt::BackgroundRole);
+            }
+            else
+                break;
         }
-        else
-            break;
-    } 
-
+    }
 }

@@ -21,7 +21,6 @@ private:
     //Task 3
     QStandardItemModel* tableModel = nullptr;
     QItemSelectionModel* selectTable = nullptr;
-    QModelIndexList idxList;
 
 private slots:
     void onAddButton();
@@ -30,5 +29,4 @@ private slots:
     void onDownButton();
     void on_pushButton_5();
     void iconMode(int state);
-    void selChangedTable(const QItemSelection&, const QItemSelection&);
 };
